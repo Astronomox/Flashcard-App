@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { BookOpen, Globe, Calculator, Flask, Palette, Music, Microscope, Atom } from 'lucide-react';
+import { BookOpen, Globe, Calculator, Beaker, Palette, Music, Microscope, Atom } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -30,7 +30,7 @@ const subjects = [
   { 
     id: 'science', 
     name: 'Science', 
-    icon: Flask,
+    icon: Beaker,
     description: 'Discover biology, chemistry, and physics',
     color: 'from-purple-500 to-fuchsia-500'
   },
