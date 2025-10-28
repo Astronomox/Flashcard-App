@@ -101,11 +101,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900/20 dark:to-purple-900/20 py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold mb-4">Academic Study Flashcards</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Academic Study Flashcards
+          </h1>
+          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Master your subjects with interactive flashcards. Select a subject to get started!
           </p>
         </div>
@@ -121,7 +123,7 @@ const Index = () => {
               <div className="mb-6">
                 <button 
                   onClick={handleBackToSubjects}
-                  className="text-blue-600 hover:text-blue-800 font-medium"
+                  className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1"
                 >
                   ← Back to Subjects
                 </button>

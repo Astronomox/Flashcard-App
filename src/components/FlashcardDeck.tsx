@@ -61,7 +61,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
 
   if (cards.length === 0) {
     return (
-      <Card className="w-full max-w-md mx-auto">
+      <Card className="w-full max-w-md mx-auto border-2 border-amber-100 dark:border-amber-900/50">
         <CardContent className="text-center py-10">
           <p className="text-muted-foreground">No flashcards available for this subject.</p>
           <p className="text-sm mt-2">Try selecting a different subject.</p>
@@ -72,19 +72,21 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <Card className="mb-4">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-xl">{subject}</CardTitle>
-          <Badge variant="secondary">
-            {currentIndex + 1} / {cards.length}
-          </Badge>
+      <Card className="mb-4 border-2 border-indigo-100 dark:border-indigo-900/50 shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-t-lg">
+          <div className="flex flex-row items-center justify-between">
+            <CardTitle className="text-xl">{subject}</CardTitle>
+            <Badge variant="secondary" className="bg-white/20 text-white">
+              {currentIndex + 1} / {cards.length}
+            </Badge>
+          </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <div className="mb-2 flex justify-between text-sm">
             <span>Progress</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <Progress value={progress} className="mb-4" />
+          <Progress value={progress} className="mb-4 h-2" />
           
           <div className="flex justify-between text-sm">
             <span>Mastered: {masteredCards.size}</span>
@@ -104,7 +106,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
           variant="outline" 
           onClick={handlePrevious} 
           disabled={currentIndex === 0}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 border-2 border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-300 dark:hover:bg-indigo-900/30"
         >
           <ChevronLeft className="w-4 h-4" />
           Previous
@@ -114,7 +116,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
           <Button 
             variant="outline" 
             onClick={markAsNeedsReview}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 border-2 border-amber-200 text-amber-700 hover:bg-amber-50 dark:border-amber-800 dark:text-amber-300 dark:hover:bg-amber-900/30"
           >
             <X className="w-4 h-4" />
             Needs Review
@@ -122,7 +124,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
           <Button 
             variant="outline" 
             onClick={markAsMastered}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 border-2 border-green-200 text-green-700 hover:bg-green-50 dark:border-green-800 dark:text-green-300 dark:hover:bg-green-900/30"
           >
             <Check className="w-4 h-4" />
             Mastered
@@ -133,7 +135,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
           variant="outline" 
           onClick={handleNext} 
           disabled={currentIndex === cards.length - 1}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 border-2 border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-300 dark:hover:bg-indigo-900/30"
         >
           Next
           <ChevronRight className="w-4 h-4" />
