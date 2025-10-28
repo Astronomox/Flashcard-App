@@ -5,89 +5,85 @@ import { MadeWithDyad } from "@/components/made-with-dyad";
 import SubjectSelector from "@/components/SubjectSelector";
 import FlashcardDeck from "@/components/FlashcardDeck";
 
-// Sample flashcard data
-const sampleFlashcards = {
-  history: [
-    {
-      id: "1",
-      front: "Who was the first President of the United States?",
-      back: "George Washington",
-      subject: "History"
-    },
-    {
-      id: "2",
-      front: "In which year did World War II end?",
-      back: "1945",
-      subject: "History"
-    },
-    {
-      id: "3",
-      front: "What ancient wonder of the world was located in Alexandria?",
-      back: "The Lighthouse of Alexandria (Pharos of Alexandria)",
-      subject: "History"
-    }
-  ],
-  geography: [
-    {
-      id: "4",
-      front: "What is the capital of Australia?",
-      back: "Canberra",
-      subject: "Geography"
-    },
-    {
-      id: "5",
-      front: "Which is the longest river in the world?",
-      back: "The Nile River",
-      subject: "Geography"
-    },
-    {
-      id: "6",
-      front: "What is the smallest country in the world?",
-      back: "Vatican City",
-      subject: "Geography"
-    }
-  ],
-  math: [
-    {
-      id: "7",
-      front: "What is the value of π (pi) to 3 decimal places?",
-      back: "3.142",
-      subject: "Mathematics"
-    },
-    {
-      id: "8",
-      front: "What is the quadratic formula?",
-      back: "x = (-b ± √(b² - 4ac)) / (2a)",
-      subject: "Mathematics"
-    },
-    {
-      id: "9",
-      front: "What is the Pythagorean theorem?",
-      back: "a² + b² = c²",
-      subject: "Mathematics"
-    }
-  ],
-  science: [
-    {
-      id: "10",
-      front: "What is the chemical symbol for gold?",
-      back: "Au",
-      subject: "Science"
-    },
-    {
-      id: "11",
-      front: "What is the speed of light in a vacuum?",
-      back: "Approximately 299,792,458 meters per second",
-      subject: "Science"
-    },
-    {
-      id: "12",
-      front: "What are the three states of matter?",
-      back: "Solid, liquid, and gas",
-      subject: "Science"
-    }
-  ]
+// Generate flashcards for each subject
+const generateFlashcards = () => {
+  // History flashcards
+  const historyCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `history-${i + 1}`,
+    front: `History Question ${i + 1}`,
+    back: `History Answer ${i + 1}`,
+    subject: "History"
+  }));
+  
+  // Geography flashcards
+  const geographyCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `geography-${i + 1}`,
+    front: `Geography Question ${i + 1}`,
+    back: `Geography Answer ${i + 1}`,
+    subject: "Geography"
+  }));
+  
+  // Math flashcards
+  const mathCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `math-${i + 1}`,
+    front: `Math Question ${i + 1}`,
+    back: `Math Answer ${i + 1}`,
+    subject: "Mathematics"
+  }));
+  
+  // Science flashcards
+  const scienceCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `science-${i + 1}`,
+    front: `Science Question ${i + 1}`,
+    back: `Science Answer ${i + 1}`,
+    subject: "Science"
+  }));
+  
+  // Art flashcards
+  const artCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `art-${i + 1}`,
+    front: `Art Question ${i + 1}`,
+    back: `Art Answer ${i + 1}`,
+    subject: "Art"
+  }));
+  
+  // Music flashcards
+  const musicCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `music-${i + 1}`,
+    front: `Music Question ${i + 1}`,
+    back: `Music Answer ${i + 1}`,
+    subject: "Music"
+  }));
+  
+  // Biology flashcards
+  const biologyCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `biology-${i + 1}`,
+    front: `Biology Question ${i + 1}`,
+    back: `Biology Answer ${i + 1}`,
+    subject: "Biology"
+  }));
+  
+  // Chemistry flashcards
+  const chemistryCards = Array.from({ length: 100 }, (_, i) => ({
+    id: `chemistry-${i + 1}`,
+    front: `Chemistry Question ${i + 1}`,
+    back: `Chemistry Answer ${i + 1}`,
+    subject: "Chemistry"
+  }));
+
+  return {
+    history: historyCards,
+    geography: geographyCards,
+    math: mathCards,
+    science: scienceCards,
+    art: artCards,
+    music: musicCards,
+    biology: biologyCards,
+    chemistry: chemistryCards
+  };
 };
+
+const sampleFlashcards = generateFlashcards();
 
 const Index = () => {
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
