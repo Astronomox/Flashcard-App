@@ -99,3 +99,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Flip card styles */
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.rotate-y-180 .card-content {
+  transform: rotateY(180deg);
+}
