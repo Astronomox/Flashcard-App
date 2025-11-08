@@ -4,15 +4,15 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { BookOpen, CheckCircle, Clock, Target } from "lucide-react";
+import { formatMinutesToHMS } from "@/lib/utils";
 
 interface StudyStatsProps {
   totalCards: number;
   masteredCards: number;
-  studyTime: number; // in minutes
   accuracy: number; // percentage
 }
 
-const StudyStats = ({ totalCards, masteredCards, studyTime, accuracy }: StudyStatsProps) => {
+const StudyStats = ({ totalCards, masteredCards, accuracy }: StudyStatsProps) => {
   const masteryPercentage = totalCards > 0 ? (masteredCards / totalCards) * 100 : 0;
   const remainingCards = totalCards - masteredCards;
 
@@ -46,16 +46,7 @@ const StudyStats = ({ totalCards, masteredCards, studyTime, accuracy }: StudySta
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-            <div className="bg-purple-100 p-2 rounded-full">
-              <Clock className="w-5 h-5 text-purple-600" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Study Time</p>
-              <p className="text-xl font-bold">{studyTime}m</p>
-            </div>
-          </div>
-          
+
           <div className="flex items-center gap-3">
             <div className="bg-orange-100 p-2 rounded-full">
               <Target className="w-5 h-5 text-orange-600" />

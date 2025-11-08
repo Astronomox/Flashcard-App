@@ -11,56 +11,56 @@ const subjects = [
     name: 'History', 
     icon: BookOpen,
     description: 'Explore historical events and figures',
-    color: 'from-amber-500 to-orange-500'
+    gradient: ['#f59e0b', '#fb923c']
   },
   { 
     id: 'geography', 
     name: 'Geography', 
     icon: Globe,
     description: 'Learn about countries, capitals, and landscapes',
-    color: 'from-emerald-500 to-teal-500'
+    gradient: ['#10b981', '#14b8a6']
   },
   { 
     id: 'math', 
     name: 'Mathematics', 
     icon: Calculator,
     description: 'Master equations, formulas, and theorems',
-    color: 'from-blue-500 to-indigo-500'
+    gradient: ['#3b82f6', '#6366f1']
   },
   { 
     id: 'science', 
     name: 'Science', 
     icon: Beaker,
     description: 'Discover biology, chemistry, and physics',
-    color: 'from-purple-500 to-fuchsia-500'
+    gradient: ['#8b5cf6', '#d946ef']
   },
   { 
     id: 'art', 
     name: 'Art', 
     icon: Palette,
     description: 'Study artists, movements, and techniques',
-    color: 'from-rose-500 to-pink-500'
+    gradient: ['#fb7185', '#ec4899']
   },
   { 
     id: 'music', 
     name: 'Music', 
     icon: Music,
     description: 'Learn about composers, theory, and instruments',
-    color: 'from-violet-500 to-purple-500'
+    gradient: ['#7c3aed', '#6d28d9']
   },
   { 
     id: 'biology', 
     name: 'Biology', 
     icon: Microscope,
     description: 'Understand living organisms and ecosystems',
-    color: 'from-green-500 to-emerald-500'
+    gradient: ['#10b981', '#059669']
   },
   { 
     id: 'chemistry', 
     name: 'Chemistry', 
     icon: Atom,
     description: 'Explore elements, compounds, and reactions',
-    color: 'from-cyan-500 to-blue-500'
+    gradient: ['#06b6d4', '#3b82f6']
   }
 ];
 
@@ -80,7 +80,7 @@ const SubjectSelector = ({ onSelectSubject, selectedSubject }: {
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Select a Subject</h2>
         <p className="text-gray-600 dark:text-gray-300 mb-4">
-          Choose from {subjects.length} academic subjects to begin your study session
+          Choose from {subjects.length} subjects to begin your study session
         </p>
         <Input
           placeholder="Search subjects..."
@@ -95,29 +95,26 @@ const SubjectSelector = ({ onSelectSubject, selectedSubject }: {
           {filteredSubjects.map((subject) => {
             const IconComponent = subject.icon;
             const isSelected = selectedSubject === subject.id;
-            
+            const gradientStyle = { background: `linear-gradient(90deg, ${subject.gradient[0]}, ${subject.gradient[1]})` };
+
             return (
               <div
                 key={subject.id}
                 onClick={() => onSelectSubject(subject.id)}
-                className={`
-                  p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
-                  flex items-start gap-4
-                  ${isSelected 
-                    ? `border-${subject.color.split(' ')[0].split('-')[1]}-500 bg-${subject.color.split(' ')[0].split('-')[1]}-50 dark:bg-${subject.color.split(' ')[0].split('-')[1]}-900/20` 
-                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
-                  }
-                  ${isSelected ? 'ring-2 ring-offset-2 ring-' + subject.color.split(' ')[0].split('-')[1] + '-500 ring-opacity-30' : ''}
-                `}
+                className={
+                  `p-4 rounded-2xl border-2 cursor-pointer transition-all duration-200 flex items-start gap-4 shadow-sm hover:scale-[1.01]` +
+                  (isSelected ? ' border-transparent ring-2 ring-offset-2 ring-opacity-30' : ' border-gray-200 dark:border-gray-700')
+                }
+                style={isSelected ? { boxShadow: `0 8px 30px ${subject.gradient[0]}30` } : undefined}
               >
-                <div className={`p-2 rounded-lg bg-gradient-to-r ${subject.color} text-white`}>
+                <div className="p-3 rounded-lg text-white flex items-center justify-center" style={gradientStyle}>
                   <IconComponent size={24} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800 dark:text-white">{subject.name}</h3>
                   <p className="text-gray-600 dark:text-gray-300 text-sm">{subject.description}</p>
                   <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    100 flashcards available
+                    1000 flashcards available
                   </div>
                 </div>
               </div>

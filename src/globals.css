@@ -13,17 +13,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 259 94% 51%; /* Indigo */
-    --primary-foreground: 0 0% 98%;
+  /* Brand tokens (academic navy + warm amber accent) */
+  --primary: 210 28% 20%; /* Navy */
+  --primary-foreground: 0 0% 100%;
 
-    --secondary: 276 74% 57%; /* Purple */
-    --secondary-foreground: 0 0% 98%;
+  --secondary: 210 28% 28%; /* darker navy variant */
+  --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 327 73% 60%; /* Pink */
-    --accent-foreground: 0 0% 98%;
+  --accent: 42 95% 55%; /* Amber */
+  --accent-foreground: 210 8% 8%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -54,17 +55,18 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 259 94% 61%;
-    --primary-foreground: 0 0% 98%;
+  /* Dark mode brand tokens: lighter navy for highlights */
+  --primary: 210 28% 48%;
+  --primary-foreground: 0 0% 100%;
 
-    --secondary: 276 74% 67%;
-    --secondary-foreground: 0 0% 98%;
+  --secondary: 210 28% 40%;
+  --secondary-foreground: 0 0% 100%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 327 73% 70%;
-    --accent-foreground: 0 0% 98%;
+  --accent: 42 95% 60%;
+  --accent-foreground: 210 8% 8%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
@@ -91,24 +93,59 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Typography for academic (light) aesthetic */
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    font-size: 16px;
+    line-height: 1.6;
   }
 }
 
-/* Flip card styles - Fixed mirroring issue */
-.transform-style-3d {
-  transform-style: preserve-3d;
+/* Headings use Merriweather for a classical, academic feel */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+  color: hsl(var(--foreground));
+  margin-top: 0;
+}
+
+/* Flip card styles - robust pattern using an inner transform layer */
+/*
+  Usage:
+  - Outer container (card) should be position: relative and provide perspective.
+  - .card-inner is the transform layer (preserve-3d) and is rotated to flip.
+  - .front-content and .back-content are absolutely stacked faces with backface-visibility hidden.
+*/
+
+.card-outer {
   perspective: 1000px;
 }
 
-.rotate-y-180 {
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+
+.card-inner.is-flipped {
   transform: rotateY(180deg);
 }
 
-.preserve-text-normal {
+.front-content,
+.back-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .back-content {
   transform: rotateY(180deg);
-  backface-visibility: hidden;
 }
+
+/* remove legacy no-op rule to avoid linter warnings */

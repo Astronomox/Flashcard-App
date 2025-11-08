@@ -1,13 +1,3 @@
-"use client";
-
-/* eslint-disable */
-
-import React, { useState } from 'react';
-import SubjectSelector from "@/components/SubjectSelector";
-import FlashcardDeck from "@/components/FlashcardDeck";
-
-// Actual educational flashcards for each subject (1000 each)
-
 const sampleFlashcards = {
   history: [
     {
@@ -12906,65 +12896,4 @@ const sampleFlashcards = {
     { "id": "7999", "front": "What is the term for a polymer composed of amino acid units (e.g., enzymes, hormones)?", "back": "Protein (or Polypeptide)", "subject": "Biochemistry" },
     { "id": "8000", "front": "What is the branch of chemistry focused on the study of elements and compounds (excluding carbon and its simple derivatives)?", "back": "Inorganic Chemistry", "subject": "General" }
   ],
-};
-
-const Index = () => {
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
-
-  const handleSelectSubject = (subject: string) => {
-    setSelectedSubject(subject);
-  };
-
-  const handleBackToSubjects = () => {
-    setSelectedSubject(null);
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900/20 dark:to-purple-900/20 py-12">
-      <div className="container mx-auto px-4">
-
-        <div className="max-w-4xl mx-auto">
-          {!selectedSubject ? (
-            <SubjectSelector
-              onSelectSubject={handleSelectSubject}
-              selectedSubject={selectedSubject}
-            />
-          ) : (
-            <section className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <div>
-                  <button
-                    onClick={handleBackToSubjects}
-                    className="inline-flex items-center gap-2 text-sky-700 dark:text-sky-300 hover:underline text-sm font-medium"
-                  >
-                    <span className="text-lg">←</span>
-                    <span>Back to Subjects</span>
-                  </button>
-
-                  <h1 className="mt-3 text-2xl md:text-3xl font-serif text-slate-900 dark:text-white leading-tight">
-                    {selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)}
-                  </h1>
-                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Focused study — flashcards presented in a randomized, subject-specific order.</p>
-                </div>
-
-                <div className="text-right">
-                  <div className="text-sm text-slate-500 dark:text-slate-400">Cards</div>
-                  <div className="mt-1 font-medium text-lg text-slate-800 dark:text-white">{(sampleFlashcards[selectedSubject as keyof typeof sampleFlashcards] || []).length}</div>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <FlashcardDeck
-                  subject={selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)}
-                  cards={sampleFlashcards[selectedSubject as keyof typeof sampleFlashcards] || []}  
-                />
-              </div>
-            </section>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Index;
+}
