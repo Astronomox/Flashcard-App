@@ -11,6 +11,7 @@ export type SubjectProgress = {
   incorrect: number;
   masteredIds: string[]; // list of card ids marked mastered
   lastUpdated?: string;
+  studyTime?: number; // total study time in minutes for this subject
 };
 
 export type ProgressStore = {
@@ -82,6 +83,34 @@ export const endUsageSession = () => {
   return store.usage;
 };
 
+// NEW FUNCTION: Add study time to a specific subject
+export const addSubjectStudyTime = (subject: string, minutes: number) => {
+  const store = loadProgress();
+  const cur = store.bySubject[subject] ?? { 
+    answered: 0, 
+    correct: 0, 
+    incorrect: 0, 
+    masteredIds: [], 
+    lastUpdated: undefined,
+    studyTime: 0 
+  };
+  
+  cur.studyTime = (cur.studyTime ?? 0) + minutes;
+  cur.lastUpdated = new Date().toISOString();
+  store.bySubject[subject] = cur;
+  saveProgress(store);
+  
+  // Also add to global usage time
+  try {
+    startUsageSession();
+    addUsageTime(minutes);
+  } catch (e) {
+    console.error('addSubjectStudyTime usage tracking error', e);
+  }
+  
+  return cur;
+};
+
 export const recordSnapshot = (snapshot: Omit<Snapshot, 'timestamp'> & { timestamp?: string }) => {
   const s: Snapshot = { ...snapshot, timestamp: snapshot.timestamp ?? new Date().toISOString() };
   const store = loadProgress();
@@ -130,7 +159,7 @@ export const recordSubjectAnswer = (subject: string, { correct, cardId, mastered
 // allow passing additional options such as timeSpent (minutes)
 export const recordSubjectAnswerWithOptions = (subject: string, { correct, cardId, mastered, timeSpent }: { correct: boolean; cardId?: string; mastered?: boolean; timeSpent?: number }) => {
   const store = loadProgress();
-  const cur = store.bySubject[subject] ?? { answered: 0, correct: 0, incorrect: 0, masteredIds: [], lastUpdated: undefined, studyTime: 0 } as SubjectProgress;
+  const cur = store.bySubject[subject] ?? { answered: 0, correct: 0, incorrect: 0, masteredIds: [], lastUpdated: undefined, studyTime: 0 };
   cur.answered = (cur.answered ?? 0) + 1;
   if (correct) cur.correct = (cur.correct ?? 0) + 1;
   else cur.incorrect = (cur.incorrect ?? 0) + 1;
@@ -154,8 +183,6 @@ export const recordSubjectAnswerWithOptions = (subject: string, { correct, cardI
   return cur;
 };
 
-
-
 export const getSubjectProgress = (subject: string): SubjectProgress | undefined => {
   return loadProgress().bySubject[subject];
 };
@@ -174,7 +201,6 @@ try {
     const merged: Snapshot = {
       totalCards: payload.totalCards ?? 0,
       masteredCards: payload.masteredCards ?? 0,
-
       accuracy: payload.accuracy ?? 0,
       timestamp: payload.timestamp ?? new Date().toISOString(),
     };
@@ -196,5 +222,6 @@ export default {
   getHistory,
   startUsageSession,
   addUsageTime,
+  addSubjectStudyTime, // Add to exports
   endUsageSession,
 };
