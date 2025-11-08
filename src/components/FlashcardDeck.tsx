@@ -122,7 +122,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
       // record an aggregated snapshot built from store
       try {
         const snap = buildAggregatedSnapshot();
-        recordSnapshot({ totalCards: snap.totalCards, masteredCards: snap.masteredCards, studyTime: snap.studyTime, accuracy: snap.accuracy });
+        recordSnapshot({ totalCards: snap.totalCards, masteredCards: snap.masteredCards, accuracy: snap.accuracy });
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('FlashcardDeck snapshot error (mastered)', e);
@@ -150,7 +150,7 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
       // record aggregated snapshot
       try {
         const snap = buildAggregatedSnapshot();
-        recordSnapshot({ totalCards: snap.totalCards, masteredCards: snap.masteredCards, studyTime: snap.studyTime, accuracy: snap.accuracy });
+        recordSnapshot({ totalCards: snap.totalCards, masteredCards: snap.masteredCards, accuracy: snap.accuracy });
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('FlashcardDeck snapshot error (needs review)', e);
