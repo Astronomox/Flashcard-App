@@ -23,8 +23,8 @@ const Settings = () => {
   const [user, setUser] = useState<{ name: string; age?: number | null; email?: string }>({ name: "", age: null, email: "" });
   const [dirtyUser, setDirtyUser] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [store, setStore] = useState<{ 
-    snapshots: Snapshot[]; 
+  const [store, setStore] = useState<{
+    snapshots: Snapshot[];
     bySubject: Record<string, SubjectProgress>;
     usage?: { sessions: number; totalTime: number; sessionStart?: string | null; lastActive?: string | null; }
   }>({ snapshots: [], bySubject: {} });
@@ -52,10 +52,9 @@ const Settings = () => {
   const saveProgressSnapshot = async () => {
     setSaving(true);
     try {
-      // snapshot of current aggregated progress
-      const latest = store.snapshots[store.snapshots.length - 1];
-      const payload = latest ?? { totalCards: 0, masteredCards: 0, studyTime: 0, accuracy: 0, timestamp: new Date().toISOString() };
-      const saved = progressLib.recordSnapshot(payload);
+      // Create snapshot from current aggregated progress
+      const snap = progressLib.buildAggregatedSnapshot();
+      const saved = progressLib.recordSnapshot(snap);
       setStore(progressLib.loadProgress());
       return saved;
     } catch (e) {
@@ -82,22 +81,22 @@ const Settings = () => {
     }
   };
 
-  // derive stats for the StudyStats preview
+  // Derive stats for the StudyStats preview
   const latestSnapshot = store.snapshots.length > 0 ? store.snapshots[store.snapshots.length - 1] : null;
   const stats = latestSnapshot ?? (() => {
-    // approximate aggregation from bySubject
+    // Approximate aggregation from bySubject
     const subjects = Object.values(store.bySubject || {});
-    if (subjects.length === 0) return { totalCards: 0, masteredCards: 0, studyTime: 0, accuracy: 0 };
+    if (subjects.length === 0) return { totalCards: 0, masteredCards: 0, accuracy: 0 };
     const totalAnswered = subjects.reduce((s, v) => s + (v.answered ?? 0), 0);
     const totalCorrect = subjects.reduce((s, v) => s + (v.correct ?? 0), 0);
     const mastered = subjects.reduce((s, v) => s + (v.masteredIds?.length ?? 0), 0);
     const accuracy = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
-    return { totalCards: totalAnswered, masteredCards: mastered, studyTime: 0, accuracy };
+    return { totalCards: totalAnswered, masteredCards: mastered, accuracy };
   })();
 
   const subjectEntries = Object.entries(store.bySubject || {});
   const usage = store.usage ?? { sessions: 0, totalTime: 0 };
-  
+
   const [showAllSnapshots, setShowAllSnapshots] = useState(false);
 
   return (
@@ -109,9 +108,26 @@ const Settings = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <input className="input input-bordered w-full" placeholder="Name" value={user.name} onChange={(e) => { setUser({ ...user, name: e.target.value }); setDirtyUser(true); }} />
-            <input className="input input-bordered w-full" placeholder="Age" type="number" value={user.age ?? ''} onChange={(e) => { const val = e.target.value ? Number(e.target.value) : null; setUser({ ...user, age: val }); setDirtyUser(true); }} />
-            <input className="input input-bordered w-full" placeholder="Email" type="email" value={user.email ?? ''} onChange={(e) => { setUser({ ...user, email: e.target.value }); setDirtyUser(true); }} />
+            <input
+              className="input input-bordered w-full bg-white text-black dark:bg-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
+              placeholder="Name"
+              value={user.name}
+              onChange={(e) => { setUser({ ...user, name: e.target.value }); setDirtyUser(true); }}
+            />
+            <input
+              className="input input-bordered w-full bg-white text-black dark:bg-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
+              placeholder="Age"
+              type="number"
+              value={user.age ?? ''}
+              onChange={(e) => { const val = e.target.value ? Number(e.target.value) : null; setUser({ ...user, age: val }); setDirtyUser(true); }}
+            />
+            <input
+              className="input input-bordered w-full bg-white text-black dark:bg-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
+              placeholder="Email"
+              type="email"
+              value={user.email ?? ''}
+              onChange={(e) => { setUser({ ...user, email: e.target.value }); setDirtyUser(true); }}
+            />
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white" onClick={saveUser} disabled={!dirtyUser}>Save Info</Button>
@@ -145,7 +161,12 @@ const Settings = () => {
 
       <div className="mt-6">
         <h2 className="text-lg font-medium mb-2">Preview current stats</h2>
-        <StudyStats totalCards={stats.totalCards} masteredCards={stats.masteredCards} studyTime={stats.studyTime} accuracy={stats.accuracy} />
+        <StudyStats 
+          totalCards={stats.totalCards} 
+          masteredCards={stats.masteredCards} 
+          studyTime={usage.totalTime} 
+          accuracy={stats.accuracy} 
+        />
       </div>
 
       <div className="mt-6">
@@ -199,7 +220,7 @@ const Settings = () => {
                       <Progress value={masteryPercent} className="h-2" />
                       <div className="text-sm text-right mt-1">Mastery {masteryPercent}%</div>
                     </div>
-                    <div className="mt-2 text-sm text-muted-foreground">Study time: {formatMinutesToHMS(data.studyTime)}</div>
+                    <div className="mt-2 text-sm text-muted-foreground">Study time: {formatMinutesToHMS(data.studyTime ?? 0)}</div>
                   </div>
                 </div>
               )
@@ -223,7 +244,9 @@ const Settings = () => {
                     <div key={idx} className="p-2 border rounded-md flex justify-between items-center">
                       <div className="text-sm">
                         <div className="font-medium">{new Date(s.timestamp).toLocaleString()}</div>
-                        <div className="text-muted-foreground">Mastered {s.masteredCards} / {s.totalCards} • Accuracy {s.accuracy}% • Time {formatMinutesToHMS(s.studyTime)}</div>
+                        <div className="text-muted-foreground">
+                          Mastered {s.masteredCards} / {s.totalCards} • Accuracy {s.accuracy}%
+                        </div>
                       </div>
                       <div>
                         <Button size="sm" onClick={() => { navigator.clipboard?.writeText(JSON.stringify(s)); }}>Copy</Button>
