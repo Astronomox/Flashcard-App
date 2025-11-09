@@ -125,11 +125,7 @@ const Contact = () => {
         </form>
 
         <div className="mt-6 text-sm text-gray-500">
-          <p>
-            This form posts to <code className="font-mono">/api/contact</code>. You should implement a server
-            endpoint that uses your private key to relay messages to your email provider. Do not place your
-            private key in client-side code.
-          </p>
+
         </div>
       </div>
     </div>
