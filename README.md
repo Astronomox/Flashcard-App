@@ -39,9 +39,6 @@ cd Flashcard-App
 npm install
 npm run dev
 ```
-
-> ⚠️ Note: Make sure you create your own `.env` file. Never commit API keys to GitHub.
-
 ---
 
 Built by Abdullahi Oriola — written during the same exam season it was meant to solve.
