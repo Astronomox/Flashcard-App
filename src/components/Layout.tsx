@@ -6,7 +6,7 @@ import Sidebar from "@/components/Sidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--clay-bg)', color: 'var(--ink)' }}>
       <Header />
       <div className="flex">
         <Sidebar />

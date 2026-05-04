@@ -2,91 +2,100 @@
 
 import React, { useState } from 'react';
 import { BookOpen, Globe, Calculator, Beaker, Palette, Music, Microscope, Atom } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 const subjects = [
-  { 
-    id: 'history', 
-    name: 'History', 
+  {
+    id: 'history',
+    name: 'History',
     icon: BookOpen,
     description: 'Explore historical events and figures',
-    gradient: ['#f59e0b', '#fb923c']
+    clayColor: '#FFE0B2',
+    clayBorder: '#FFA726',
   },
-  { 
-    id: 'geography', 
-    name: 'Geography', 
+  {
+    id: 'geography',
+    name: 'Geography',
     icon: Globe,
     description: 'Learn about countries, capitals, and landscapes',
-    gradient: ['#10b981', '#14b8a6']
+    clayColor: '#C8E6C9',
+    clayBorder: '#66BB6A',
   },
-  { 
-    id: 'math', 
-    name: 'Mathematics', 
+  {
+    id: 'math',
+    name: 'Mathematics',
     icon: Calculator,
     description: 'Master equations, formulas, and theorems',
-    gradient: ['#3b82f6', '#6366f1']
+    clayColor: '#B3E5FC',
+    clayBorder: '#29B6F6',
   },
-  { 
-    id: 'science', 
-    name: 'Science', 
+  {
+    id: 'science',
+    name: 'Science',
     icon: Beaker,
     description: 'Discover biology, chemistry, and physics',
-    gradient: ['#8b5cf6', '#d946ef']
+    clayColor: '#E1BEE7',
+    clayBorder: '#AB47BC',
   },
-  { 
-    id: 'art', 
-    name: 'Art', 
+  {
+    id: 'art',
+    name: 'Art',
     icon: Palette,
     description: 'Study artists, movements, and techniques',
-    gradient: ['#fb7185', '#ec4899']
+    clayColor: '#F8BBD0',
+    clayBorder: '#EC407A',
   },
-  { 
-    id: 'music', 
-    name: 'Music', 
+  {
+    id: 'music',
+    name: 'Music',
     icon: Music,
     description: 'Learn about composers, theory, and instruments',
-    gradient: ['#7c3aed', '#6d28d9']
+    clayColor: '#D1C4E9',
+    clayBorder: '#7E57C2',
   },
-  { 
-    id: 'biology', 
-    name: 'Biology', 
+  {
+    id: 'biology',
+    name: 'Biology',
     icon: Microscope,
     description: 'Understand living organisms and ecosystems',
-    gradient: ['#10b981', '#059669']
+    clayColor: '#DCEDC8',
+    clayBorder: '#8BC34A',
   },
-  { 
-    id: 'chemistry', 
-    name: 'Chemistry', 
+  {
+    id: 'chemistry',
+    name: 'Chemistry',
     icon: Atom,
     description: 'Explore elements, compounds, and reactions',
-    gradient: ['#06b6d4', '#3b82f6']
+    clayColor: '#B2EBF2',
+    clayBorder: '#00BCD4',
   }
 ];
 
-const SubjectSelector = ({ onSelectSubject, selectedSubject }: { 
-  onSelectSubject: (subject: string) => void; 
-  selectedSubject: string | null; 
+const SubjectSelector = ({ onSelectSubject, selectedSubject }: {
+  onSelectSubject: (subject: string) => void;
+  selectedSubject: string | null;
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredSubjects = subjects.filter(subject => 
+  const filteredSubjects = subjects.filter(subject =>
     subject.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     subject.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+    <div className="clay-surface p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Select a Subject</h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">
+        <h2 className="text-2xl font-display font-bold mb-2" style={{ color: 'var(--ink)' }}>
+          Select a Subject
+        </h2>
+        <p className="font-body mb-4" style={{ color: 'var(--ink-light)' }}>
           Choose from {subjects.length} subjects to begin your study session
         </p>
-        <Input
+        <input
           placeholder="Search subjects..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-md"
+          className="clay-input max-w-md"
         />
       </div>
 
@@ -95,26 +104,40 @@ const SubjectSelector = ({ onSelectSubject, selectedSubject }: {
           {filteredSubjects.map((subject) => {
             const IconComponent = subject.icon;
             const isSelected = selectedSubject === subject.id;
-            const gradientStyle = { background: `linear-gradient(90deg, ${subject.gradient[0]}, ${subject.gradient[1]})` };
 
             return (
               <div
                 key={subject.id}
                 onClick={() => onSelectSubject(subject.id)}
-                className={
-                  `p-4 rounded-2xl border-2 cursor-pointer transition-all duration-200 flex items-start gap-4 shadow-sm hover:scale-[1.01]` +
-                  (isSelected ? ' border-transparent ring-2 ring-offset-2 ring-opacity-30' : ' border-gray-200 dark:border-gray-700')
-                }
-                style={isSelected ? { boxShadow: `0 8px 30px ${subject.gradient[0]}30` } : undefined}
+                className="clay-surface cursor-pointer transition-transform duration-150 hover:-translate-y-0.5"
+                style={{
+                  padding: '1rem',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '1rem',
+                  borderColor: isSelected ? 'var(--clay-accent)' : 'var(--clay-dark)',
+                  borderWidth: isSelected ? '3px' : '3px',
+                }}
               >
-                <div className="p-3 rounded-lg text-white flex items-center justify-center" style={gradientStyle}>
-                  <IconComponent size={24} />
+                <div
+                  className="p-3 rounded-xl flex items-center justify-center"
+                  style={{
+                    background: subject.clayColor,
+                    border: `2.5px solid ${subject.clayBorder}`,
+                    boxShadow: 'inset 1px 1px 3px rgba(255,255,255,0.5), inset -1px -1px 3px rgba(0,0,0,0.08)',
+                  }}
+                >
+                  <IconComponent size={24} style={{ color: subject.clayBorder }} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-800 dark:text-white">{subject.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">{subject.description}</p>
-                  <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    1000 flashcards available
+                  <h3 className="font-display font-semibold text-lg" style={{ color: 'var(--ink)' }}>
+                    {subject.name}
+                  </h3>
+                  <p className="font-body text-sm" style={{ color: 'var(--ink-light)' }}>
+                    {subject.description}
+                  </p>
+                  <div className="mt-2 font-hand font-semibold" style={{ color: 'var(--ink-faint)', fontSize: '14px' }}>
+                    <span className="wax-seal" /> 1000 flashcards
                   </div>
                 </div>
               </div>

@@ -9,7 +9,7 @@ type FormData = {
 
 // Load from environment variables
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_jwxd0co";
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_contact_form";
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_60wvnzt";
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "ndqVQL5a4jQKAgomK";
 
 const Contact = () => {
@@ -63,69 +63,68 @@ const Contact = () => {
 
   return (
     <div className="py-8">
-      <h1 className="text-2xl font-semibold mb-4">Contact me</h1>
+      <h1 className="text-2xl font-display font-bold mb-4" style={{ color: 'var(--ink)' }}>Contact me</h1>
       <div className="md:w-1/2">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              placeholder="Your name"
-              required
-            />
+        <div className="clay-surface p-6">
+          <div className="paper-surface" style={{ borderRadius: 'calc(var(--radius) - 3px)' }}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="name" className="label-handwritten block mb-1" style={{ fontSize: '16px' }}>
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="clay-input"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="label-handwritten block mb-1" style={{ fontSize: '16px' }}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="clay-input"
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="label-handwritten block mb-1" style={{ fontSize: '16px' }}>
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className="clay-input"
+                  placeholder="Your message here..."
+                  required
+                  style={{ resize: 'vertical' }}
+                ></textarea>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`clay-btn flex-1 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
+              </div>
+            </form>
           </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              placeholder="your.email@example.com"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-              Message
-            </label>
-            <textarea
-              id="message"
-              rows={4}
-              value={formData.message}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              placeholder="Your message here..."
-              required
-            ></textarea>
-          </div>
-
-          <div className="flex gap-4">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`flex-1 px-6 py-3 font-medium rounded-lg transition-colors duration-300 ${
-                isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"
-              }`}
-            >
-              {isSubmitting ? <span>⏳ Sending…</span> : "Send Message"}
-            </button>
-          </div>
-        </form>
-
-        <div className="mt-6 text-sm text-gray-500">
-
         </div>
       </div>
     </div>

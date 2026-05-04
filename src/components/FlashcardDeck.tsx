@@ -1,11 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ChevronRight, RotateCw, Check, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import Flashcard from "@/components/Flashcard";
 import { recordSubjectAnswer, recordSnapshot, recordSubjectAnswerWithOptions, buildAggregatedSnapshot, addSubjectStudyTime } from "@/lib/progress";
 
@@ -168,36 +164,48 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
 
   if (total === 0) {
     return (
-      <Card className="w-full max-w-md mx-auto border-2 border-amber-100 dark:border-amber-900/50">
-        <CardContent className="text-center py-10">
-          <p className="text-muted-foreground">No flashcards available for this subject.</p>
-          <p className="text-sm mt-2">Try selecting a different subject.</p>
-        </CardContent>
-      </Card>
+      <div className="w-full max-w-md mx-auto clay-surface p-8 text-center">
+        <p className="font-hand font-semibold" style={{ color: 'var(--ink-faint)', fontSize: '18px' }}>
+          No flashcards available for this subject.
+        </p>
+        <p className="text-sm mt-2 font-body" style={{ color: 'var(--ink-faint)' }}>
+          Try selecting a different subject.
+        </p>
+      </div>
     );
   }
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <Card className="mb-4 border-2 border-indigo-100 dark:border-indigo-900/50 shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-t-lg">
+      <div className="clay-surface mb-4 overflow-hidden">
+        <div
+          className="px-5 py-4"
+          style={{
+            background: 'var(--clay-accent)',
+            borderBottom: '3px solid #7A3A1A',
+            boxShadow: 'inset 0 -2px 4px rgba(0,0,0,0.1)',
+          }}
+        >
           <div className="flex flex-row items-center justify-between">
-            <CardTitle className="text-xl">{subject}</CardTitle>
+            <h2 className="text-xl font-display font-bold" style={{ color: 'var(--paper)' }}>{subject}</h2>
             <div className="flex items-center gap-3">
-              <Badge variant="secondary" className="bg-white/20 text-white">
+              <span
+                className="font-hand font-semibold px-3 py-1 rounded-lg"
+                style={{
+                  background: 'rgba(255,255,255,0.2)',
+                  color: 'var(--paper)',
+                  fontSize: '16px',
+                }}
+              >
                 {currentIndex + 1} / {total}
-              </Badge>
-              <Button
-                size="sm"
-                variant="ghost"
+              </span>
+              <button
                 onClick={() => {
-                  // reshuffle current deck
                   try {
                     const now = Date.now();
                     const minutes = Math.max(0, (now - cardStartAtRef.current) / 60000);
                     if (minutes > 0) addSubjectStudyTime(subject, minutes);
                   } catch (e) {
-                    // eslint-disable-next-line no-console
                     console.error('FlashcardDeck timing error (reshuffle)', e);
                   }
                   const copy = shuffledCards.slice();
@@ -207,26 +215,38 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
                   setCardStartAt(now2);
                   cardStartAtRef.current = now2;
                 }}
-                className="text-white/90 hover:text-white"
+                className="font-hand font-semibold px-3 py-1 rounded-lg"
+                style={{
+                  color: 'rgba(255,255,255,0.85)',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '15px',
+                }}
               >
                 Reshuffle
-              </Button>
+              </button>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <div className="mb-2 flex justify-between text-sm">
+        </div>
+        <div className="px-5 py-4" style={{ background: 'var(--clay-card)' }}>
+          <div className="mb-2 flex justify-between text-sm font-hand font-semibold" style={{ color: 'var(--ink-light)', fontSize: '15px' }}>
             <span>Progress</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <Progress value={progress} className="mb-4 h-2" />
-          
-          <div className="flex justify-between text-sm">
-            <span>Mastered: {masteredCards.size}</span>
+          <div className="clay-progress mb-4">
+            <div
+              className="clay-progress-fill"
+              style={{ width: `${progress}%`, background: 'var(--clay-accent)' }}
+            />
+          </div>
+
+          <div className="flex justify-between text-sm font-hand font-semibold" style={{ color: 'var(--ink-light)', fontSize: '15px' }}>
+            <span><span className="wax-seal" /> Mastered: {masteredCards.size}</span>
             <span>Mastery: {Math.round(masteryPercentage)}%</span>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <Flashcard 
         front={currentCard.front} 
@@ -235,49 +255,49 @@ const FlashcardDeck = ({ subject, cards }: FlashcardDeckProps) => {
       />
 
   <div className="flex items-center justify-between mt-6 animate-fade-up">
-        <Button
-          variant="ghost"
+        <button
           onClick={handlePrevious}
           disabled={currentIndex === 0}
           aria-label="Previous card"
-          className="rounded-full px-4 py-2.5 flex items-center gap-2 border-2 border-indigo-200 text-indigo-700 bg-white/60 hover:bg-indigo-50 shadow-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed dark:border-indigo-800 dark:text-indigo-300 dark:bg-slate-800/60 dark:hover:bg-indigo-900/30"
+          className="clay-btn clay-btn-muted flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+          style={{ padding: '8px 16px', fontSize: '16px' }}
         >
           <ChevronLeft className="w-4 h-4" />
           <span className="hidden sm:inline">Previous</span>
-        </Button>
+        </button>
 
         <div className="flex items-center gap-3 mx-2">
-          <Button
-            variant="ghost"
+          <button
             onClick={markAsNeedsReview}
             aria-label="Mark as needs review"
-            className="rounded-full px-4 py-2.5 flex items-center gap-2 border-2 border-amber-300 text-amber-700 bg-white/60 hover:bg-amber-50 shadow-sm transition-colors dark:border-amber-800 dark:text-amber-300 dark:bg-slate-800/60 dark:hover:bg-amber-900/20"
+            className="clay-btn clay-btn-red flex items-center gap-2"
+            style={{ padding: '8px 16px', fontSize: '16px', borderColor: '#7A2A20' }}
           >
             <X className="w-4 h-4" />
-            <span className="hidden md:inline">Needs Review</span>
-          </Button>
+            <span className="hidden md:inline">Tricky</span>
+          </button>
 
-          <Button
-            variant="ghost"
+          <button
             onClick={markAsMastered}
             aria-label="Mark as mastered"
-            className="rounded-full px-4 py-2.5 flex items-center gap-2 border-2 border-green-300 text-green-700 bg-white/60 hover:bg-green-50 shadow-sm transition-colors dark:border-green-800 dark:text-green-300 dark:bg-slate-800/60 dark:hover:bg-green-900/20"
+            className="clay-btn clay-btn-green flex items-center gap-2"
+            style={{ padding: '8px 16px', fontSize: '16px' }}
           >
             <Check className="w-4 h-4" />
-            <span className="hidden md:inline">Mastered</span>
-          </Button>
+            <span className="hidden md:inline">Got it!</span>
+          </button>
         </div>
 
-        <Button
-          variant="ghost"
+        <button
           onClick={handleNext}
           disabled={currentIndex === total - 1}
           aria-label="Next card"
-          className="rounded-full px-4 py-2.5 flex items-center gap-2 border-2 border-indigo-200 text-indigo-700 bg-white/60 hover:bg-indigo-50 shadow-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed dark:border-indigo-800 dark:text-indigo-300 dark:bg-slate-800/60 dark:hover:bg-indigo-900/30"
+          className="clay-btn clay-btn-muted flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+          style={{ padding: '8px 16px', fontSize: '16px' }}
         >
           <span className="hidden sm:inline">Next</span>
           <ChevronRight className="w-4 h-4" />
-        </Button>
+        </button>
       </div>
     </div>
   );

@@ -4,85 +4,117 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* ========== RETRO ACADEMIA + CLAY PALETTE ========== */
+    --background: 38 33% 95%;       /* #F5F0E8 warm parchment */
+    --foreground: 18 33% 12%;       /* #2C1810 deep ink */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 38 25% 90%;             /* #EDE7DA clay card surface */
+    --card-foreground: 18 33% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 40% 96%;          /* #FAF6EF paper white */
+    --popover-foreground: 18 33% 12%;
 
-  /* Brand tokens (academic navy + warm amber accent) */
-  --primary: 210 28% 20%; /* Navy */
-  --primary-foreground: 0 0% 100%;
+    --primary: 18 60% 40%;          /* #A0522D sienna clay accent */
+    --primary-foreground: 40 40% 96%;
 
-  --secondary: 210 28% 28%; /* darker navy variant */
-  --secondary-foreground: 0 0% 100%;
+    --secondary: 18 60% 30%;        /* #7A3A1A deep sienna */
+    --secondary-foreground: 40 40% 96%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 38 18% 80%;            /* #D8CFBD muted clay */
+    --muted-foreground: 25 15% 45%; /* #8B7B6B ink faint */
 
-  --accent: 42 95% 55%; /* Amber */
-  --accent-foreground: 210 8% 8%;
+    --accent: 46 78% 60%;           /* #E8C84A golden highlight */
+    --accent-foreground: 18 33% 12%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 5 45% 50%;       /* #B5574A red clay */
+    --destructive-foreground: 40 40% 96%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 259 94% 51%;
+    --border: 33 18% 60%;           /* #8B7E6A clay dark border */
+    --input: 33 18% 60%;
+    --ring: 18 60% 40%;
 
-    --radius: 0.5rem;
+    --radius: 1.125rem;             /* 18px — chunky clay radius */
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 40 40% 96%;
+    --sidebar-foreground: 25 15% 30%;
+    --sidebar-primary: 18 60% 40%;
+    --sidebar-primary-foreground: 40 40% 96%;
+    --sidebar-accent: 38 18% 80%;
+    --sidebar-accent-foreground: 18 33% 12%;
+    --sidebar-border: 33 18% 72%;
+    --sidebar-ring: 18 60% 40%;
+
+    /* Custom clay tokens */
+    --clay-bg: #F5F0E8;
+    --clay-card: #EDE7DA;
+    --clay-deep: #D8CFBD;
+    --clay-shadow: #C4B89E;
+    --clay-dark: #8B7E6A;
+    --clay-accent: #A0522D;
+    --clay-accent-light: #C4825A;
+    --ink: #2C1810;
+    --ink-light: #5C4A3A;
+    --ink-faint: #8B7B6B;
+    --paper: #FAF6EF;
+    --paper-line: #D4C9B8;
+    --green-clay: #6B8E5A;
+    --red-clay: #B5574A;
+    --highlight: #E8C84A;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 20 20% 8%;        /* #1A1410 dark parchment */
+    --foreground: 38 25% 90%;       /* #EDE7DA warm light */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 20 15% 12%;             /* #221C16 dark card */
+    --card-foreground: 38 25% 90%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 20 15% 10%;
+    --popover-foreground: 38 25% 90%;
 
-  /* Dark mode brand tokens: lighter navy for highlights */
-  --primary: 210 28% 48%;
-  --primary-foreground: 0 0% 100%;
+    --primary: 18 50% 55%;          /* lighter sienna for dark */
+    --primary-foreground: 20 20% 8%;
 
-  --secondary: 210 28% 40%;
-  --secondary-foreground: 0 0% 100%;
+    --secondary: 18 45% 45%;
+    --secondary-foreground: 38 25% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 20 12% 20%;
+    --muted-foreground: 30 15% 60%;
 
-  --accent: 42 95% 60%;
-  --accent-foreground: 210 8% 8%;
+    --accent: 46 70% 55%;
+    --accent-foreground: 20 20% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 5 50% 40%;
+    --destructive-foreground: 38 25% 90%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 259 94% 61%;
+    --border: 25 12% 28%;
+    --input: 25 12% 28%;
+    --ring: 18 50% 55%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 20 15% 10%;
+    --sidebar-foreground: 38 25% 85%;
+    --sidebar-primary: 18 50% 55%;
+    --sidebar-primary-foreground: 20 20% 8%;
+    --sidebar-accent: 20 12% 18%;
+    --sidebar-accent-foreground: 38 25% 85%;
+    --sidebar-border: 25 10% 22%;
+    --sidebar-ring: 18 50% 55%;
+
+    --clay-bg: #1A1410;
+    --clay-card: #221C16;
+    --clay-deep: #2E2620;
+    --clay-shadow: #1A1410;
+    --clay-dark: #4A4035;
+    --clay-accent: #C4825A;
+    --clay-accent-light: #D4A07A;
+    --ink: #EDE7DA;
+    --ink-light: #C4B89E;
+    --ink-faint: #8B7B6B;
+    --paper: #2A221A;
+    --paper-line: #3A3028;
+    --green-clay: #8BAE7A;
+    --red-clay: #D47A6A;
+    --highlight: #E8C84A;
   }
 }
 
@@ -93,28 +125,181 @@
 
   body {
     @apply bg-background text-foreground;
-    /* Typography for academic (light) aesthetic */
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
     font-size: 16px;
     line-height: 1.6;
+    background-color: var(--clay-bg);
+    color: var(--ink);
   }
 }
 
-/* Headings use Merriweather for a classical, academic feel */
+/* ========== TYPOGRAPHY ========== */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
-  color: hsl(var(--foreground));
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  color: var(--ink);
   margin-top: 0;
 }
 
-/* Flip card styles - robust pattern using an inner transform layer */
-/*
-  Usage:
-  - Outer container (card) should be position: relative and provide perspective.
-  - .card-inner is the transform layer (preserve-3d) and is rotated to flip.
-  - .front-content and .back-content are absolutely stacked faces with backface-visibility hidden.
-*/
+/* ========== CLAY SURFACE SYSTEM ========== */
+.clay-surface {
+  background: var(--clay-card);
+  border: 3px solid var(--clay-dark);
+  border-radius: var(--radius);
+  box-shadow:
+    inset 2px 2px 4px rgba(255,255,255,0.35),
+    inset -2px -2px 4px rgba(0,0,0,0.08),
+    4px 6px 0px var(--clay-shadow),
+    6px 8px 0px rgba(0,0,0,0.05);
+  position: relative;
+}
 
+.clay-surface::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border-radius: calc(var(--radius) - 4px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  pointer-events: none;
+}
+
+/* ========== CLAY BUTTONS ========== */
+.clay-btn {
+  background: var(--clay-accent);
+  color: var(--paper);
+  border: 3px solid var(--secondary, #7A3A1A);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 10px 22px;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 3px rgba(255,255,255,0.3),
+    inset -1px -1px 3px rgba(0,0,0,0.15),
+    3px 4px 0px hsl(var(--secondary));
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.clay-btn:active {
+  transform: translate(2px, 3px);
+  box-shadow:
+    inset 1px 1px 3px rgba(255,255,255,0.3),
+    inset -1px -1px 3px rgba(0,0,0,0.15),
+    1px 1px 0px hsl(var(--secondary));
+}
+
+.clay-btn-green {
+  background: var(--green-clay);
+  border-color: #3E5A30;
+  box-shadow:
+    inset 1px 1px 3px rgba(255,255,255,0.3),
+    inset -1px -1px 3px rgba(0,0,0,0.15),
+    3px 4px 0px #3E5A30;
+}
+
+.clay-btn-red {
+  background: var(--red-clay);
+  border-color: #7A2A20;
+  box-shadow:
+    inset 1px 1px 3px rgba(255,255,255,0.3),
+    inset -1px -1px 3px rgba(0,0,0,0.15),
+    3px 4px 0px #7A2A20;
+}
+
+.clay-btn-muted {
+  background: var(--clay-deep);
+  color: var(--ink);
+  border-color: var(--clay-dark);
+  box-shadow:
+    inset 1px 1px 3px rgba(255,255,255,0.3),
+    inset -1px -1px 3px rgba(0,0,0,0.12),
+    2px 3px 0px var(--clay-dark);
+}
+
+/* ========== NOTEBOOK PAPER EFFECT ========== */
+.paper-surface {
+  background: var(--paper);
+  background-image:
+    repeating-linear-gradient(
+      transparent, transparent 31px,
+      var(--paper-line) 31px, var(--paper-line) 32px
+    );
+  border-left: 3px solid #E8A0A0;
+  padding: 1rem 1.25rem 1rem 1.5rem;
+  position: relative;
+}
+
+.paper-surface::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 28px;
+  width: 1px;
+  height: 100%;
+  background: rgba(232,160,160,0.44);
+}
+
+/* ========== CLAY INPUT FIELDS ========== */
+.clay-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2.5px solid var(--clay-dark);
+  border-radius: calc(var(--radius) - 6px);
+  box-shadow:
+    inset 2px 2px 4px rgba(0,0,0,0.06),
+    inset -1px -1px 2px rgba(255,255,255,0.5);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.clay-input:focus {
+  border-color: var(--clay-accent);
+}
+
+.clay-input::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+/* ========== CLAY PROGRESS BAR ========== */
+.clay-progress {
+  height: 10px;
+  background: var(--clay-deep);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid var(--clay-dark);
+}
+
+.clay-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
+  transition: width 0.4s ease;
+}
+
+/* ========== HANDWRITTEN LABEL ========== */
+.label-handwritten {
+  font-family: 'Caveat', cursive;
+  font-weight: 600;
+  color: var(--ink-light);
+}
+
+/* ========== WAX SEAL DOT ========== */
+.wax-seal {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--red-clay);
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3);
+  vertical-align: middle;
+}
+
+/* ========== FLIP CARD STYLES ========== */
 .card-outer {
   perspective: 1000px;
 }
@@ -148,4 +333,18 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotateY(180deg);
 }
 
-/* remove legacy no-op rule to avoid linter warnings */
+/* ========== SCROLLBAR STYLING ========== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--clay-deep);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--clay-dark);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clay-accent);
+}

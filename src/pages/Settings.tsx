@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import StudyStats from "@/components/StudyStats";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import progressLib, { Snapshot, SubjectProgress } from "@/lib/progress";
 import { formatMinutesToHMS } from "@/lib/utils";
 import {
@@ -101,28 +98,28 @@ const Settings = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">Settings</h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>User Settings</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <h1 className="text-2xl font-display font-bold mb-4" style={{ color: 'var(--ink)' }}>Settings</h1>
+      <div className="clay-surface">
+        <div className="px-5 py-4" style={{ borderBottom: '2px solid var(--clay-dark)' }}>
+          <h3 className="font-display font-semibold text-lg" style={{ color: 'var(--ink)' }}>User Settings</h3>
+        </div>
+        <div className="px-5 py-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <input
-              className="input input-bordered w-full bg-white text-black dark:bg-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
+              className="clay-input"
               placeholder="Name"
               value={user.name}
               onChange={(e) => { setUser({ ...user, name: e.target.value }); setDirtyUser(true); }}
             />
             <input
-              className="input input-bordered w-full bg-white text-black dark:bg-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
+              className="clay-input"
               placeholder="Age"
               type="number"
               value={user.age ?? ''}
               onChange={(e) => { const val = e.target.value ? Number(e.target.value) : null; setUser({ ...user, age: val }); setDirtyUser(true); }}
             />
             <input
-              className="input input-bordered w-full bg-white text-black dark:bg-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
+              className="clay-input"
               placeholder="Email"
               type="email"
               value={user.email ?? ''}
@@ -130,12 +127,12 @@ const Settings = () => {
             />
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white" onClick={saveUser} disabled={!dirtyUser}>Save Info</Button>
-            <Button size="sm" variant="outline" onClick={clearData}>Clear User + Progress</Button>
+            <button className="clay-btn clay-btn-green" style={{ padding: '8px 16px', fontSize: '16px' }} onClick={saveUser} disabled={!dirtyUser}>Save Info</button>
+            <button className="clay-btn clay-btn-muted" style={{ padding: '8px 16px', fontSize: '16px' }} onClick={clearData}>Clear User + Progress</button>
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button size="sm" className="bg-red-600 text-white hover:bg-red-700">Delete All Progress</Button>
+                <button className="clay-btn clay-btn-red" style={{ padding: '8px 16px', fontSize: '16px' }}>Delete All Progress</button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -151,13 +148,13 @@ const Settings = () => {
               </AlertDialogContent>
             </AlertDialog>
 
-            <Button size="sm" onClick={saveProgressSnapshot} disabled={saving}>{saving ? 'Saving...' : 'Save Progress Snapshot'}</Button>
+            <button className="clay-btn" style={{ padding: '8px 16px', fontSize: '16px' }} onClick={saveProgressSnapshot} disabled={saving}>{saving ? 'Saving...' : 'Save Progress Snapshot'}</button>
           </div>
           <div className="mt-4">
-            <p className="text-sm text-muted-foreground">Last saved: {latestSnapshot ? new Date(latestSnapshot.timestamp).toLocaleString() : 'No saved progress'}</p>
+            <p className="font-hand" style={{ color: 'var(--ink-faint)', fontSize: '14px' }}>Last saved: {latestSnapshot ? new Date(latestSnapshot.timestamp).toLocaleString() : 'No saved progress'}</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <div className="mt-6">
         <h2 className="text-lg font-medium mb-2">Preview current stats</h2>
@@ -170,23 +167,23 @@ const Settings = () => {
       </div>
 
       <div className="mt-6">
-        <h2 className="text-lg font-medium mb-2">Usage</h2>
-        <div className="p-3 border rounded-md">
-          <div className="flex items-center justify-between">
+        <h2 className="text-lg font-display font-semibold mb-2" style={{ color: 'var(--ink)' }}>Usage</h2>
+        <div className="clay-surface p-4">
+          <div className="flex items-center justify-between font-body" style={{ color: 'var(--ink-light)' }}>
             <div>Sessions</div>
-            <div className="font-medium">{usage.sessions}</div>
+            <div className="font-semibold" style={{ color: 'var(--ink)' }}>{usage.sessions}</div>
           </div>
-          <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center justify-between mt-2 font-body" style={{ color: 'var(--ink-light)' }}>
             <div>Total study time</div>
-            <div className="font-medium">{formatMinutesToHMS(usage.totalTime)}</div>
+            <div className="font-semibold" style={{ color: 'var(--ink)' }}>{formatMinutesToHMS(usage.totalTime)}</div>
           </div>
         </div>
       </div>
 
       <div className="mt-6">
-        <h2 className="text-lg font-medium mb-2">Subject progress</h2>
+        <h2 className="text-lg font-display font-semibold mb-2" style={{ color: 'var(--ink)' }}>Subject progress</h2>
         {subjectEntries.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No per-subject data yet. Study some cards to populate progress.</p>
+          <p className="font-hand" style={{ color: 'var(--ink-faint)', fontSize: '15px' }}>No per-subject data yet. Study some cards to populate progress.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {subjectEntries.map(([subj, data]) => {
@@ -194,33 +191,35 @@ const Settings = () => {
               const mastered = data.masteredIds?.length ?? 0;
               const masteryPercent = answered > 0 ? Math.round((mastered / answered) * 100) : 0;
               return (
-                <div key={subj} className="p-3 border rounded-md">
+                <div key={subj} className="clay-surface p-4">
                   <div className="flex items-center justify-between">
-                    <div className="font-medium">{subj}</div>
-                    <div className="text-sm text-muted-foreground">Updated: {data.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : '-'}</div>
+                    <div className="font-display font-semibold" style={{ color: 'var(--ink)' }}>{subj}</div>
+                    <div className="font-hand text-sm" style={{ color: 'var(--ink-faint)', fontSize: '13px' }}>Updated: {data.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : '-'}</div>
                   </div>
-                  <div className="mt-2 text-sm">
+                  <div className="mt-2 text-sm font-body" style={{ color: 'var(--ink-light)' }}>
                     <div className="flex items-center justify-between">
                       <div>Answered</div>
-                      <div className="font-medium">{answered}</div>
+                      <div className="font-semibold" style={{ color: 'var(--ink)' }}>{answered}</div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div>Correct</div>
-                      <div className="font-medium">{data.correct}</div>
+                      <div className="font-semibold" style={{ color: 'var(--ink)' }}>{data.correct}</div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div>Incorrect</div>
-                      <div className="font-medium">{data.incorrect}</div>
+                      <div className="font-semibold" style={{ color: 'var(--ink)' }}>{data.incorrect}</div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div>Mastered</div>
-                      <div className="font-medium">{mastered}</div>
+                      <div className="font-semibold" style={{ color: 'var(--ink)' }}>{mastered}</div>
                     </div>
                     <div className="mt-2">
-                      <Progress value={masteryPercent} className="h-2" />
-                      <div className="text-sm text-right mt-1">Mastery {masteryPercent}%</div>
+                      <div className="clay-progress">
+                        <div className="clay-progress-fill" style={{ width: `${masteryPercent}%`, background: 'var(--green-clay)' }} />
+                      </div>
+                      <div className="text-sm text-right mt-1 font-hand" style={{ color: 'var(--ink-faint)', fontSize: '14px' }}>Mastery {masteryPercent}%</div>
                     </div>
-                    <div className="mt-2 text-sm text-muted-foreground">Study time: {formatMinutesToHMS(data.studyTime ?? 0)}</div>
+                    <div className="mt-2 font-hand" style={{ color: 'var(--ink-faint)', fontSize: '14px' }}>Study time: {formatMinutesToHMS(data.studyTime ?? 0)}</div>
                   </div>
                 </div>
               )
@@ -230,9 +229,9 @@ const Settings = () => {
       </div>
 
       <div className="mt-6">
-        <h2 className="text-lg font-medium mb-2">Progress history</h2>
+        <h2 className="text-lg font-display font-semibold mb-2" style={{ color: 'var(--ink)' }}>Progress history</h2>
         {store.snapshots.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No snapshots yet.</p>
+          <p className="font-hand" style={{ color: 'var(--ink-faint)', fontSize: '15px' }}>No snapshots yet.</p>
         ) : (
           <div className="space-y-2">
             {(() => {
@@ -241,22 +240,22 @@ const Settings = () => {
               return (
                 <>
                   {toShow.map((s, idx) => (
-                    <div key={idx} className="p-2 border rounded-md flex justify-between items-center">
+                    <div key={idx} className="clay-surface p-3 flex justify-between items-center">
                       <div className="text-sm">
-                        <div className="font-medium">{new Date(s.timestamp).toLocaleString()}</div>
-                        <div className="text-muted-foreground">
-                          Mastered {s.masteredCards} / {s.totalCards} • Accuracy {s.accuracy}%
+                        <div className="font-display font-semibold" style={{ color: 'var(--ink)' }}>{new Date(s.timestamp).toLocaleString()}</div>
+                        <div className="font-hand" style={{ color: 'var(--ink-faint)', fontSize: '14px' }}>
+                          <span className="wax-seal" /> Mastered {s.masteredCards} / {s.totalCards} • Accuracy {s.accuracy}%
                         </div>
                       </div>
                       <div>
-                        <Button size="sm" onClick={() => { navigator.clipboard?.writeText(JSON.stringify(s)); }}>Copy</Button>
+                        <button className="clay-btn clay-btn-muted" style={{ padding: '4px 12px', fontSize: '14px' }} onClick={() => { navigator.clipboard?.writeText(JSON.stringify(s)); }}>Copy</button>
                       </div>
                     </div>
                   ))}
 
                   {snaps.length > 2 && (
                     <div className="flex justify-center">
-                      <Button size="sm" variant="link" onClick={() => setShowAllSnapshots((v) => !v)}>{showAllSnapshots ? 'Show less' : `Show more (${snaps.length - 2} more)`}</Button>
+                      <button className="font-hand font-semibold" style={{ color: 'var(--clay-accent)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' }} onClick={() => setShowAllSnapshots((v) => !v)}>{showAllSnapshots ? 'Show less' : `Show more (${snaps.length - 2} more)`}</button>
                     </div>
                   )}
                 </>

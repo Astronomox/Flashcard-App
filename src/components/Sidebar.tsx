@@ -13,7 +13,14 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 hidden md:block border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-slate-900">
+    <aside
+      className="w-64 hidden md:block"
+      style={{
+        backgroundColor: 'var(--clay-card)',
+        borderRight: '3px solid var(--clay-dark)',
+        boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.04), 4px 0 0 var(--clay-shadow)',
+      }}
+    >
       <div className="p-6">
         <nav className="flex flex-col gap-2">
           {links.map((l) => {
@@ -23,12 +30,28 @@ const Sidebar = () => {
                 key={l.to}
                 to={l.to}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActive ? "bg-amber-50 text-amber-700 dark:bg-amber-900/20" : "text-slate-700 hover:bg-slate-50 dark:text-slate-300"
+                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-base transition-all duration-150 font-hand font-semibold ${
+                    isActive ? '' : ''
                   }`
                 }
+                style={({ isActive }) => ({
+                  background: isActive ? 'var(--clay-accent)' : 'transparent',
+                  color: isActive ? 'var(--paper)' : 'var(--ink-light)',
+                  border: isActive ? '2px solid #7A3A1A' : '2px solid transparent',
+                  boxShadow: isActive
+                    ? 'inset 1px 1px 3px rgba(255,255,255,0.3), inset -1px -1px 3px rgba(0,0,0,0.15), 2px 3px 0px #7A3A1A'
+                    : 'none',
+                  fontSize: '17px',
+                })}
               >
-                <div className="w-8 h-8 rounded-md flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{
+                    background: 'var(--clay-deep)',
+                    border: '1.5px solid var(--clay-dark)',
+                    boxShadow: 'inset 1px 1px 2px rgba(255,255,255,0.3)',
+                  }}
+                >
                   <Icon className="w-4 h-4" />
                 </div>
                 {l.label}

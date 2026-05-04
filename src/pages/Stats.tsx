@@ -33,7 +33,7 @@ const Stats = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">Study Stats</h1>
+      <h1 className="text-2xl font-display font-bold mb-4" style={{ color: 'var(--ink)' }}>Study Stats</h1>
       <StudyStats totalCards={stats.totalCards} masteredCards={stats.masteredCards} accuracy={stats.accuracy} />
     </div>
   );
